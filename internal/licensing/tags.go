@@ -33,6 +33,7 @@ const (
 
 // ProductNameWithBrand returns the product name with brand (e.g., "Sourcegraph Enterprise") based
 // on the license info.
+// TODO: Adjust this function to reflect new plan product names.
 func ProductNameWithBrand(hasLicense bool, licenseTags []string) string {
 	if !hasLicense {
 		return "Sourcegraph Free"
@@ -88,16 +89,4 @@ func ProductNameWithBrand(hasLicense bool, licenseTags []string) string {
 	}
 
 	return baseName + name
-}
-
-var MiscTags = []string{
-	TrialTag,
-	TrueUpUserCountTag,
-	InternalTag,
-	DevTag,
-	AllowAnonymousUsageTag,
-	"starter",
-	"mau",
-	GPTLLMAccessTag,
-	TelemetryEventsExportDisabledTag,
 }

@@ -97,22 +97,6 @@ const (
 	FeatureAllowAirGapped BasicFeature = "allow-air-gapped"
 )
 
-var AllFeatures = []Feature{
-	FeatureSSO,
-	FeatureACLs,
-	FeatureExplicitPermissionsAPI,
-	FeatureExtensionRegistry,
-	FeatureRemoteExtensionsAllowDisallow,
-	FeatureBranding,
-	FeatureCampaigns,
-	FeatureMonitoring,
-	FeatureBackupAndRestore,
-	FeatureCodeInsights,
-	&FeatureBatchChanges{},
-	FeatureSCIM,
-	FeatureAllowAirGapped,
-}
-
 type PlanDetails struct {
 	Features []Feature
 }

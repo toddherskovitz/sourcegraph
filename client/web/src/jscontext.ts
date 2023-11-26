@@ -265,7 +265,6 @@ export interface SourcegraphContext extends Pick<Required<SiteConfiguration>, 'e
         codeScaleCloseToLimit?: boolean
         codeScaleExceededLimit?: boolean
         batchChanges?: BatchChangesLicenseInfo
-        knownLicenseTags?: string[]
     }
 
     /** sha256 hashed license key */

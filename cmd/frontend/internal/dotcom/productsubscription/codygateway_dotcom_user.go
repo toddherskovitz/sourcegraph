@@ -3,10 +3,11 @@ package productsubscription
 import (
 	"context"
 	"fmt"
+	"math"
+
 	sgactor "github.com/sourcegraph/sourcegraph/internal/actor"
 	"github.com/sourcegraph/sourcegraph/internal/conf/conftypes"
 	"github.com/sourcegraph/sourcegraph/internal/featureflag"
-	"math"
 
 	"github.com/graph-gophers/graphql-go"
 	"github.com/graph-gophers/graphql-go/relay"
@@ -50,8 +51,8 @@ type CodyGatewayDotcomUserResolver struct {
 }
 
 func (r CodyGatewayDotcomUserResolver) CodyGatewayDotcomUserByToken(ctx context.Context, args *graphqlbackend.CodyGatewayUsersByAccessTokenArgs) (graphqlbackend.CodyGatewayUser, error) {
-	// 🚨 SECURITY: Only site admins or the service accounts may check users.
-	grantReason, err := serviceAccountOrSiteAdmin(ctx, r.DB, false)
+	// 🚨 SECURITY: Only license managers or the service accounts may check users.
+	grantReason, err := serviceAccountOrLicenseManager(ctx, r.DB, false)
 	if err != nil {
 		return nil, err
 	}

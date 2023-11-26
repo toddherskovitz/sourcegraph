@@ -10,6 +10,10 @@ const AppAuthCallbackPage = lazyComponent(() => import('./AppAuthCallbackPage'),
 const CodyChatPage = lazyComponent(() => import('../../cody/chat/CodyChatPage'), 'CodyChatPage')
 const RedirectToUserPage = lazyComponent(() => import('../../user/settings/RedirectToUserPage'), 'RedirectToUserPage')
 const SiteAdminArea = lazyComponent(() => import('../../site-admin/SiteAdminArea'), 'SiteAdminArea')
+const LicenseManagementArea = lazyComponent(
+    () => import('../../productSubscription/LicenseManagementArea'),
+    'LicenseManagementArea'
+)
 const ApiConsole = lazyComponent(() => import('../../api/ApiConsole'), 'ApiConsole')
 const UserArea = lazyComponent(() => import('../../user/area/UserArea'), 'UserArea')
 const RedirectToUserSettings = lazyComponent(
@@ -64,6 +68,10 @@ export const APP_ROUTES: RouteObject[] = [
                 )}
             />
         ),
+    },
+    {
+        path: PageRoutes.LicenseManagement,
+        element: <LegacyRoute render={props => <LicenseManagementArea {...props} />} />,
     },
     {
         path: PageRoutes.ApiConsole,
