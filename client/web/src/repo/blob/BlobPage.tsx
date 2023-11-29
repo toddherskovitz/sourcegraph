@@ -357,7 +357,7 @@ export const BlobPage: React.FunctionComponent<BlobPageProps> = ({ className, co
             {window.context.isAuthenticatedUser && (
                 <RepoHeaderContributionPortal
                     position="right"
-                    priority={5}
+                    priority={6}
                     id="open-in-editor-action"
                     repoHeaderContributionsLifecycleProps={props.repoHeaderContributionsLifecycleProps}
                 >
@@ -373,7 +373,7 @@ export const BlobPage: React.FunctionComponent<BlobPageProps> = ({ className, co
             )}
             <RepoHeaderContributionPortal
                 position="right"
-                priority={3}
+                priority={4}
                 id="toggle-blame-action"
                 repoHeaderContributionsLifecycleProps={props.repoHeaderContributionsLifecycleProps}
             >
@@ -388,7 +388,7 @@ export const BlobPage: React.FunctionComponent<BlobPageProps> = ({ className, co
             </RepoHeaderContributionPortal>
             <RepoHeaderContributionPortal
                 position="right"
-                priority={4}
+                priority={5}
                 id="toggle-blob-panel"
                 repoHeaderContributionsLifecycleProps={props.repoHeaderContributionsLifecycleProps}
             >
@@ -405,7 +405,7 @@ export const BlobPage: React.FunctionComponent<BlobPageProps> = ({ className, co
             {renderMode === 'code' && (
                 <RepoHeaderContributionPortal
                     position="right"
-                    priority={8}
+                    priority={9}
                     id="toggle-line-wrap"
                     repoHeaderContributionsLifecycleProps={props.repoHeaderContributionsLifecycleProps}
                     renderInContextMenu={true}
@@ -416,7 +416,7 @@ export const BlobPage: React.FunctionComponent<BlobPageProps> = ({ className, co
 
             <RepoHeaderContributionPortal
                 position="right"
-                priority={7}
+                priority={8}
                 id="raw-action"
                 repoHeaderContributionsLifecycleProps={props.repoHeaderContributionsLifecycleProps}
                 renderInContextMenu={true}
@@ -523,7 +523,7 @@ export const BlobPage: React.FunctionComponent<BlobPageProps> = ({ className, co
             {blobInfoOrError.richHTML && (
                 <RepoHeaderContributionPortal
                     position="right"
-                    priority={9}
+                    priority={10}
                     id="toggle-rendered-file-mode"
                     repoHeaderContributionsLifecycleProps={props.repoHeaderContributionsLifecycleProps}
                     renderInContextMenu={true}
