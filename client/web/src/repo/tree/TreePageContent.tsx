@@ -4,7 +4,7 @@ import { mdiCog, mdiFileOutline, mdiGlasses, mdiInformationOutline } from '@mdi/
 import classNames from 'classnames'
 import { escapeRegExp } from 'lodash'
 
-import { RepoMetadata } from '@sourcegraph/branded'
+import { RepoMetadata, RepoTopics } from '@sourcegraph/branded'
 import { encodeURIPathComponent, numberWithCommas, pluralize } from '@sourcegraph/common'
 import { gql, useQuery } from '@sourcegraph/http-client'
 import { TeamAvatar } from '@sourcegraph/shared/src/components/TeamAvatar'
@@ -90,6 +90,22 @@ const ExtraInfoSection: React.FC<{
             <ExtraInfoSectionItem>
                 <ExtraInfoSectionItemHeader title="Description" tooltip="Synchronized from the code host" />
                 {repo.description && <Text>{repo.description}</Text>}
+            </ExtraInfoSectionItem>
+            <ExtraInfoSectionItem>
+                <ExtraInfoSectionItemHeader
+                    title="Topics"
+                    tooltip={<>Topics synced from GitHub or GitLab</>}
+                ></ExtraInfoSectionItemHeader>
+                {repo.topics.length ? (
+                    <RepoTopics
+                        topics={repo.topics}
+                        queryState={queryState}
+                        queryBuildOptions={{ omitRepoFilter: true }}
+                        buildSearchURLQueryFromQueryState={buildSearchURLQueryFromQueryState}
+                    />
+                ) : (
+                    <Text className="text-muted">None</Text>
+                )}
             </ExtraInfoSectionItem>
             {enableRepositoryMetadata && (
                 <ExtraInfoSectionItem>

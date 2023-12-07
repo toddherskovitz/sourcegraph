@@ -9,7 +9,7 @@ import type { BuildSearchQueryURLParameters, QueryState } from '@sourcegraph/sha
 import { getRepoMatchLabel, getRepoMatchUrl, type RepositoryMatch } from '@sourcegraph/shared/src/search/stream'
 import { Icon, Link, Text } from '@sourcegraph/wildcard'
 
-import { RepoMetadata } from './RepoMetadata'
+import { RepoMetadata, RepoTopics } from './RepoMetadata'
 import { ResultContainer } from './ResultContainer'
 
 import styles from './SearchResult.module.scss'
@@ -49,7 +49,7 @@ export const RepoSearchResult: React.FunctionComponent<RepoSearchResultProps> = 
             </span>
         </div>
     )
-    const { description, metadata, repository: repoName, descriptionMatches, repositoryMatches } = result
+    const { description, topics, metadata, repository: repoName, descriptionMatches, repositoryMatches } = result
 
     useEffect((): void => {
         if (repoNameElement.current && repoName && repositoryMatches) {
@@ -135,10 +135,21 @@ export const RepoSearchResult: React.FunctionComponent<RepoSearchResultProps> = 
                         </Text>
                     )}
                     {showRepoMetadata && (
-                        <RepoMetadata
+                        // display metadata and topic in 1 row with flex
+                        <div className="d-flex">
+                            <RepoMetadata
+                                queryState={queryState}
+                                buildSearchURLQueryFromQueryState={buildSearchURLQueryFromQueryState}
+                                items={Object.entries(metadata).map(([key, value]) => ({ key, value }))}
+                            />
+                        </div>
+                    )}
+
+                    {topics?.length && (
+                        <RepoTopics
+                            topics={topics}
                             queryState={queryState}
                             buildSearchURLQueryFromQueryState={buildSearchURLQueryFromQueryState}
-                            items={Object.entries(metadata).map(([key, value]) => ({ key, value }))}
                         />
                     )}
                 </div>

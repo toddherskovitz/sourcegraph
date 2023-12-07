@@ -125,3 +125,65 @@ export const RepoMetadata: React.FC<RepoMetadataProps> = ({ items, className, on
         </ul>
     )
 }
+
+interface TopicProps {
+    topic: string
+    buildSearchURLQueryFromQueryState?: (queryParameters: BuildSearchQueryURLParameters) => string
+    queryState?: QueryState
+    queryBuildOptions?: {
+        omitRepoFilter?: boolean
+    }
+}
+
+const Topic: React.FC<TopicProps> = ({ topic, queryState, buildSearchURLQueryFromQueryState, queryBuildOptions }) => {
+    const filterLink = useMemo(() => {
+        if (!queryState || !buildSearchURLQueryFromQueryState) {
+            return undefined
+        }
+
+        let query = queryState.query
+        // omit repo: filter if omitRepoFilter is true
+        if (queryBuildOptions?.omitRepoFilter) {
+            const repoFilter = findFilter(queryState.query, 'repo', FilterKind.Global)
+            if (repoFilter && !repoFilter.value?.value.startsWith('has.topic')) {
+                query = omitFilter(query, repoFilter)
+            }
+        }
+        // append has.topic filter
+        query = appendFilter(query, 'repo', `has.topic(${topic})`)
+
+        const searchParams = buildSearchURLQueryFromQueryState({ query })
+        return `/search?${searchParams}`
+    }, [buildSearchURLQueryFromQueryState, topic, queryBuildOptions?.omitRepoFilter, queryState])
+
+    if (filterLink) {
+        return (
+            <Badge variant="outlineSecondary" as={Link} to={filterLink}>
+                <Code>{topic}</Code>
+            </Badge>
+        )
+    }
+    return (
+        <Badge variant="outlineSecondary">
+            <Code>{topic}</Code>
+        </Badge>
+    )
+}
+
+interface RepoTopicsProps
+    extends Pick<TopicProps, 'buildSearchURLQueryFromQueryState' | 'queryState' | 'queryBuildOptions'> {
+    topics: string[]
+    className?: string
+}
+
+export const RepoTopics: React.FC<RepoTopicsProps> = ({ topics, className, ...props }) => {
+    return (
+        <ul className={classNames(styles.container, 'd-flex align-items-start flex-wrap m-0 list-unstyled', className)}>
+            {topics.map(topic => (
+                <li key={`${topic}`}>
+                    <Topic topic={topic} {...props} />
+                </li>
+            ))}
+        </ul>
+    )
+}

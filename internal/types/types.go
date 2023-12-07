@@ -131,6 +131,8 @@ type SearchedRepo struct {
 	LastFetched *time.Time
 	// A set of key-value pairs associated with the repo
 	KeyValuePairs map[string]*string
+
+	Metadata any
 }
 
 // RepoBlock contains data about a repo that has been blocked. Blocked repos aren't returned by store methods by default.
