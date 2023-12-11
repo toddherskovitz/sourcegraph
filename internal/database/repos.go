@@ -373,12 +373,11 @@ func (s *repoStore) Metadata(ctx context.Context, ids ...api.RepoID) (_ []*types
 
 		r.KeyValuePairs = kvps.kvps
 
-		var ok bool
-		r.Metadata, ok, err = unmarshalMetadata(s.logger, typ, metadataBytes)
+		metadata, ok, err := unmarshalMetadata(s.logger, typ, metadataBytes)
 		if err != nil {
 			return err
-		} else if !ok {
-			return nil
+		} else if ok {
+			r.Topics = GetTopics(metadata)
 		}
 
 		res = append(res, &r)
@@ -546,12 +545,11 @@ func GetTopics(metadata any) (topics []string) {
 		topics = m.Topics
 	}
 
-	return topics
+	return
 }
 
-// unmarshalMetadata unmarshalls metadata into the appropriate struct for the
-// given service type. It returns true if the metadata was unmarshalled
-// successfully.
+// unmarshalMetadata returns the unmarshalled metadata, or false if the data
+// could not be unmarshalled.
 func unmarshalMetadata(logger log.Logger, typ string, metadata json.RawMessage) (any, bool, error) {
 	var m any
 
