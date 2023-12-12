@@ -143,7 +143,7 @@ describe('Search contexts', () => {
         testContext.overrideGraphQL({
             ...testContextForSearchContexts,
             // TODO: fix this test
-            RepositoriesByNames: ({ names, first, after }) => {
+            RepositoriesByNames: ({ names, first }) => {
                 return {
                     repositories: {
                         nodes: names.map((name, index) => ({ id: `index-${index}`, name })),
@@ -302,14 +302,15 @@ describe('Search contexts', () => {
         await driver.page.waitForSelector('[data-testid="search-contexts-list-page"]')
     })
 
+    // TODO: Fix this test
     test('Edit search context', async () => {
         testContext.overrideGraphQL({
             ...testContextForSearchContexts,
-            RepositoriesByNames: ({ names, first, after }) => {
+            RepositoriesByNames: ({ names, first }) => {
                 return {
                     repositories: {
                         nodes: names.map((name, index) => ({ id: `index-${index}`, name })),
-                            pageInfo: {
+                        pageInfo: {
                             endCursor: null,
                             hasNextPage: true
                         }
